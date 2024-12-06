@@ -51,9 +51,9 @@ export const PopulationChart: React.FC<PopulationChartProps> = ({ data }) => {
               <XAxis dataKey="year" />
               <YAxis />
               {/* Custom Tooltip */}
-              <Tooltip content={<CustomTooltip />} />
+              <Tooltip content={<CustomTooltip payload={[]} label={""} />} />
               <Legend 
-                wrapperStyle={{ fontSize: '14px', color: '#8884d8' }}  // Change this to desired color for the legend
+                wrapperStyle={{ fontSize: '14px', color: '#8884d8' }}
               />
               <Line type="monotone" dataKey="value" stroke="#8884d8" strokeWidth={3} />
             </LineChart>
