@@ -25,9 +25,8 @@ export interface Country {
 
 export default function CountryInfo() {
   const searchParams = useSearchParams();
-  const countryCode = searchParams.get('code'); // Obtém o código do país da URL
+  const countryCode = searchParams.get('code');
 
-  // Tipando o estado corretamente, pode ser um objeto Country ou null
   const [country, setCountry] = useState<Country | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
@@ -75,10 +74,8 @@ export default function CountryInfo() {
         <p>No flag available</p>
       )}
 
-      {/* Displaying population chart */}
       <PopulationChart data={country.population} />
 
-      {/* Displaying border countries */}
       <BorderCountries borderCountries={country.borderCountries} />
     </div>
   );
