@@ -77,7 +77,6 @@ export default function CountryInfo() {
 
   return (
     <div className="flex flex-col items-center">
-      {/* Wrap the Suspense around your code */}
       <Suspense fallback={<Spinner />}>
         <h1 className="text-2xl font-bold mb-4 mt-4">{country.name}</h1>
 
