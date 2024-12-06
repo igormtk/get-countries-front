@@ -67,7 +67,7 @@ export default function CountryInfo() {
 
   return (
     <div className="flex flex-col items-center">
-      <h1>{country.name}</h1>
+      <h1 className="text-2xl font-bold mb-4 mt-4">{country.name}</h1>
       {/* Displays the flag image, or a default image if no valid flag */}
       {flagUrl ? (
         <Image src={flagUrl} alt={country.name} width={200} height={200} />

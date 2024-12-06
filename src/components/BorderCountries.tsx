@@ -2,20 +2,22 @@ import { BorderCountry } from "@/app/country-info/page";
 
 export const BorderCountries: React.FC<{ borderCountries: BorderCountry[] }> = ({ borderCountries }) => (
   <section className="my-8">
-    <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+    <h2 className="text-2xl font-bold text-blue-800 mb-6 text-center">
       Border Countries
     </h2>
     
-    <div className="max-w-xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-      <ul className="p-6 space-y-4">
+    <div>
+      <div className="flex flex-wrap gap-4 justify-center">
         {borderCountries.map((borderCountry) => (
-          <li key={borderCountry.countryCode} className="text-lg font-medium text-blue-600 hover:underline">
-            <a href={`/country-info?code=${borderCountry.countryCode}`}>
-              {borderCountry.commonName}
-            </a>
-          </li>
+          <a
+            key={borderCountry.countryCode}
+            href={`/country-info?code=${borderCountry.countryCode}`}
+            className="text-lg font-medium text-blue-600 hover:underline bg-gray-100 px-4 py-2 rounded-md shadow-sm transition hover:bg-blue-100"
+          >
+            {borderCountry.commonName}
+          </a>
         ))}
-      </ul>
+      </div>
     </div>
   </section>
 );
