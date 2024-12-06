@@ -1,4 +1,4 @@
-import { BorderCountry } from "@/app/country-info/page";
+import { BorderCountry } from "@/app/country-info/CountryInfo";
 
 export const BorderCountries: React.FC<{ borderCountries: BorderCountry[] }> = ({ borderCountries }) => (
   <section className="my-8">
