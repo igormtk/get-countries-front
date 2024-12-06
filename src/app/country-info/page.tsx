@@ -1,10 +1,21 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { getCountryDetails } from "@/services/getCountryDetails";
-import { PopulationChart } from "@/components/PopulationChart";
 import Image from "next/image";
-import { BorderCountries } from "@/components/BorderCountries";
+import { Spinner } from "@/components/Spinner";
+
+const PopulationChart = React.lazy(() =>
+  import("@/components/PopulationChart").then((module) => ({
+    default: module.PopulationChart,
+  }))
+);
+
+const BorderCountries = React.lazy(() =>
+  import("@/components/BorderCountries").then((module) => ({
+    default: module.BorderCountries,
+  }))
+);
 
 export interface BorderCountry {
   countryCode: string;
@@ -25,11 +36,11 @@ export interface Country {
 
 export default function CountryInfo() {
   const searchParams = useSearchParams();
-  const countryCode = searchParams.get('code');
+  const countryCode = searchParams.get("code");
 
   const [country, setCountry] = useState<Country | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     if (countryCode) {
@@ -50,7 +61,7 @@ export default function CountryInfo() {
   }, [countryCode]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Spinner />
   }
 
   if (error) {
@@ -62,7 +73,7 @@ export default function CountryInfo() {
   }
 
   // Flag URL, checking if it's valid
-  const flagUrl = country.flag && country.flag !== 'Flag data not found' ? country.flag : '/path/to/default-flag.png';
+  const flagUrl = country.flag && country.flag !== "Flag data not found" ? country.flag : "/path/to/default-flag.png";
 
   return (
     <div className="flex flex-col items-center">
@@ -74,9 +85,14 @@ export default function CountryInfo() {
         <p>No flag available</p>
       )}
 
-      <PopulationChart data={country.population} />
+      {/* Suspense wrapper */}
+      <Suspense fallback={<div>Loading chart...</div>}>
+        <PopulationChart data={country.population} />
+      </Suspense>
 
-      <BorderCountries borderCountries={country.borderCountries} />
+      <Suspense fallback={<div>Loading border countries...</div>}>
+        <BorderCountries borderCountries={country.borderCountries} />
+      </Suspense>
     </div>
   );
 }
