@@ -77,20 +77,17 @@ export default function CountryInfo() {
 
   return (
     <div className="flex flex-col items-center">
+      <Suspense fallback={<Spinner />}>
       <h1 className="text-2xl font-bold mb-4 mt-4">{country.name}</h1>
-      {/* Displays the flag image, or a default image if no valid flag */}
+
       {flagUrl ? (
         <Image src={flagUrl} alt={country.name} width={200} height={200} />
       ) : (
         <p>No flag available</p>
       )}
 
-      {/* Suspense wrapper */}
-      <Suspense fallback={<div>Loading chart...</div>}>
         <PopulationChart data={country.population} />
-      </Suspense>
-
-      <Suspense fallback={<div>Loading border countries...</div>}>
+ 
         <BorderCountries borderCountries={country.borderCountries} />
       </Suspense>
     </div>
